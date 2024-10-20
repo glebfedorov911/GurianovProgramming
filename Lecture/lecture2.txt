@@ -1,0 +1,43 @@
+Лекция 2. Массивы.
+
+Массив - это структура данных, состоящая из фиксированного числа элементов, имеющих одинаковое имя, одинаковый тип
+и расположенных в памяти последовательно.
+
+1. Объявление массива.
+
+type name[size] => int array[8] {0, 1, 2, 3, 4, 5, 6, 7};
+
+Рекомендуется использоваться
+const int size = 5;
+int array[size] {1, 2, 3, 4, 5};
+
+ИЛИ
+
+enum ArrayElements
+{
+    MIN_ARRAY_WIDTH = 3
+}
+int array[MIN_ARRAY_WIDTH] {1, 2, 3};
+
+2. ЦИКЛ for с массивом
+
+int numbers[] {1, 2, 3};
+for (int n : numbers) {
+    cout << n << " ";
+}
+
+ИЛИ
+
+int numbers[] {1, 2, 3};
+for (auto n : numbers) {
+    cout << n << " ";
+}
+
+ИЛИ
+
+int numbers[] {1, 2, 3};
+for (int i = 0; i < size(numbers); i++) {
+    cout << numbers[i] << " ";
+}
+
+смотреть файлы старосты
