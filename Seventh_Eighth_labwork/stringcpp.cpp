@@ -1,140 +1,81 @@
-// #include <iostream>
-//
-// using std::cout;
-// using std::endl;
-// using std::string;
-//
-// bool solve(string s1, string s2);
-//
-// /*
-// ‘едоров 24¬ѕ1
-// ѕрисвоить переменной F значение true, если в предложении S2 есть хот€ бы одно слово предложени€ S1
-// и длина которого превышает длину самого короткого слова S1, в противном случае присвоить переменной F - false
-// */
-//
-// int main()
-// {
-//     setlocale(LC_ALL, "RUS");
-//     // string s1{ "Hello world" };   // 0
-//     string s1{ "Hello my World" };   // 1
-//     string s2{ "Hello Teacher" };
-//
-//     bool f = solve(s1, s2);
-//
-//     cout << "»сходные данные:" << endl;
-//     cout << "s1: " << s1 << endl;
-//     cout << "s2: " << s2 << endl;
-//
-//     cout << "¬ыходные данные:" << endl;
-//     cout << "F: " << f;
-//
-//     return 0;
-// }
-//
-// string delete_spaces(string s)
-// {
-//     string result;
-//     bool inWord = false;
-//
-//     for (int i = 0; i < s.size(); i++)
-//     {
-//         if (s[i] != ' ')
-//         {
-//             result += s[i];
-//             inWord = true;
-//         }
-//         else if (inWord)
-//         {
-//             result += ' ';
-//             inWord = false;
-//         }
-//     }
-//
-//     if (!result.empty() && result.back() == ' ') result.pop_back();
-//
-//     return result;
-// }
-//
-// int count_of_finding_word(string& str, int len)
-// {
-//     if (len == 0) return 0;
-//
-//     int cnt = 0;
-//     bool inWord = false;
-//
-//     for (int i = 0; i < len; i++)
-//     {
-//         if (str[i] != ' ')
-//         {
-//             if (!inWord)
-//             {
-//                 inWord = true;
-//                 cnt++;
-//             }
-//         }
-//         else inWord = false;
-//     }
-//     return cnt;
-// }
-//
-// string* sub_words(string& str, int cnt)
-// {
-//     string* stringArray = new string[cnt];
-//     string tempStr;
-//     char delimiter = ' ';
-//
-//     for (int i = 0; i < cnt; i++)
-//     {
-//         tempStr = str.substr(0, str.find(delimiter));
-//         if (!tempStr.empty()) stringArray[i] = tempStr;
-//         else stringArray[i] = str;
-//         str = str.substr(str.find(delimiter) + 1);
-//     }
-//
-//     return stringArray;
-// }
-//
-// int smallest_word_length(string* subStr, int len)
-// {
-//     int k = subStr[0].size();
-//     for (int i = 1; i < len; i++)
-//     {
-//         if (!subStr[i].empty() && subStr[i] != " ") {
-//             k = subStr[i].size() < k ? subStr[i].size() : k;
-//         }
-//     }
-//     return k;
-// }
-//
-// bool check_word(string* s1, string* s2, int sizeS1, int sizeS2, int smallest_len)
-// {
-//     for (int i = 0; i < sizeS1; i++)
-//     {
-//         for (int j = 0; j < sizeS2; j++)
-//         {
-//             if (s1[i] == s2[j] && s2[j].size() > smallest_len)
-//             {
-//                 return true;
-//             }
-//         }
-//
-//     }
-//     return false;
-// }
-//
-// bool solve(string s1, string s2)
-// {
-//     s1 = delete_spaces(s1);
-//     s2 = delete_spaces(s2);
-//     int length1 = s1.size();
-//     int length2 = s2.size();
-//     int cnt1 = count_of_finding_word(s1, length1);
-//     int cnt2 = count_of_finding_word(s2, length2);
-//
-//     string* stringArray1 = sub_words(s1, cnt1);
-//     int smallestWordS1 = smallest_word_length(stringArray1, cnt1);
-//
-//     string* stringArray2 = sub_words(s2, cnt2);
-//
-//     return check_word(stringArray1, stringArray2, cnt1, cnt2, smallestWordS1);
-// }
+#include <iostream>
+#include <string>
+
+using std::cout;
+using std::endl;
+using std::string;
+
+/*
+‘едоров 24¬ѕ1
+ѕрисвоить переменной F значение true, если в предложении S2 есть хот€ бы одно слово предложени€ S1
+и длина которого превышает длину самого короткого слова S1, в противном случае присвоить переменной F - false
+*/
+
+bool findS1InS2(string, string);
+
+int main()
+{
+    setlocale(LC_ALL, "RUS");
+
+    string s1 { "hello my world"}; // 1
+    // string s1 { "hello teacher"}; // 0
+    string s2 {"hello world"};
+    bool f = findS1InS2(s1, s2);
+    cout << f << endl;
+    return 0;
+}
+
+int getSmallestWordLength(string s) {
+    int start = 0;
+    int end = s.find(" ");
+    int len = end - start;
+    while (end != string::npos) {
+        s = s.substr(end+1, s.length());
+        end = s.find(" ");
+        if (start == end) continue;
+        if (end > -1) len = len > end ? end : len;
+        else len = len > s.length() ? s.length() : len;
+    }
+    return len;
+}
+
+bool findS1InS2(string s1, string s2) {
+    int smallestLenS1 = getSmallestWordLength(s1);
+    int start1 = 0, start2 = 0;
+    string copy_s2 = s2;
+    int end1 = s1.find(" "), end2 = copy_s2.find(" ");
+    string word1 = s1.substr(start1, end1), word2 = copy_s2.substr(start2, end2);
+    int count_finish1 = 0, count_finish2 = 0;
+
+    s1.erase(start1, end1+1);
+
+    while (count_finish1 < 2) {
+        copy_s2.erase(start2, end2+1);
+        if (word1 == " ") continue;
+
+        while (count_finish2 < 2) {
+            if (word2 == " ") continue;
+            if (word1 == word2 && word2.length() > smallestLenS1) return true;
+            end2 = copy_s2.find(" ");
+            if (end2 == string::npos) {
+                word2 = copy_s2.substr(start2, copy_s2.length());
+                count_finish2++;
+            } else {
+                word2 = copy_s2.substr(start2, end2);
+                copy_s2.erase(start2, end2+1);
+            }
+        }
+
+        end1 = s1.find(" ");
+        if (end1 == string::npos) {
+            word1 = s1.substr(start1, s1.length());
+            count_finish1++;
+        } else {
+            word1 = s1.substr(start1, end1);
+            s1.erase(start1, end1+1);
+        }
+        count_finish2 = 0;
+        copy_s2 = s2;
+    }
+    return false;
+}
