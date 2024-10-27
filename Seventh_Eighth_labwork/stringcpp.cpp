@@ -18,9 +18,11 @@ int main()
     setlocale(LC_ALL, "RUS");
 
     string s1 { "hello my world"}; // 1
-    // string s1 { "hello teacher"}; // 0
+//    string s1 { "hello teacher"}; // 0
     string s2 {"hello world"};
+    cout << "Исходные данные: " << endl << s1 << endl << s2 << endl;
     bool f = findS1InS2(s1, s2);
+    cout << "Результат: ";
     cout << f << endl;
     return 0;
 }
