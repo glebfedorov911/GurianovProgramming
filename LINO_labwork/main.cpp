@@ -1,221 +1,115 @@
-#include<bits/stdc++.h>
-using namespace std;
-#define int long long
-#define double long double
-
-struct Stack {
-     int size;
-     int value;
-     Stack* prev;
-     int length = 0;
-};
+#include <iostream>
 
 /*
-Федоров Глеб 24ВП1
-Очередь с двусторонним доступом задана, как однонаправленный линеный список целых чисел.
-Задана максимальная длина очереди - N.
-Реализовать дисциплину обслуживания LIFO - последним пришел, первым ушел
-Функции:
-• поместить элемент в очередь
-• выбрать элемент очереди
-• вывести текущее содержимое очереди
-• текущая длина очереди
-• очередь пуста
-• очередь заполнена
+Р¤РµРґРѕСЂРѕРІ Р“Р»РµР± 24Р’Рџ1
+РћС‡РµСЂРµРґСЊ СЃ РґРІСѓСЃС‚РѕСЂРѕРЅРЅРёРј РґРѕСЃС‚СѓРїРѕРј Р·Р°РґР°РЅР°, РєР°Рє РѕРґРЅРѕРЅР°РїСЂР°РІР»РµРЅРЅС‹Р№ Р»РёРЅРµРЅС‹Р№ СЃРїРёСЃРѕРє С†РµР»С‹С… С‡РёСЃРµР».
+Р—Р°РґР°РЅР° РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РґР»РёРЅР° РѕС‡РµСЂРµРґРё - N.
+Р РµР°Р»РёР·РѕРІР°С‚СЊ РґРёСЃС†РёРїР»РёРЅСѓ РѕР±СЃР»СѓР¶РёРІР°РЅРёСЏ LIFO - РїРѕСЃР»РµРґРЅРёРј РїСЂРёС€РµР», РїРµСЂРІС‹Рј СѓС€РµР»
+Р¤СѓРЅРєС†РёРё:
+вЂў РїРѕРјРµСЃС‚РёС‚СЊ СЌР»РµРјРµРЅС‚ РІ РѕС‡РµСЂРµРґСЊ +
+вЂў РІС‹Р±СЂР°С‚СЊ СЌР»РµРјРµРЅС‚ РѕС‡РµСЂРµРґРё +
+вЂў РІС‹РІРµСЃС‚Рё С‚РµРєСѓС‰РµРµ СЃРѕРґРµСЂР¶РёРјРѕРµ РѕС‡РµСЂРµРґРё +
+вЂў С‚РµРєСѓС‰Р°СЏ РґР»РёРЅР° РѕС‡РµСЂРµРґРё +
+вЂў РѕС‡РµСЂРµРґСЊ РїСѓСЃС‚Р° +
+вЂў РѕС‡РµСЂРµРґСЊ Р·Р°РїРѕР»РЅРµРЅР° +
 */
 
-Stack* pushElement(Stack*, int);
-bool isEmpty(Stack*);
-bool isFull(Stack*);
-int nowLength(Stack*);
-void getElements(Stack*);
-int getElementsByIndex(Stack* &, int);
-int getLastElement(Stack* &);
+using std::cout;
+using std::endl;
 
-signed main() {
+struct Queue {
+     const int size;
+     int length;
+     int value;
+     Queue* next;
+};
+
+Queue* addElement(Queue*, int);
+int getElement(Queue**);
+void showElements(Queue*);
+int queueLength(Queue*);
+bool queueIsEmpty(Queue*);
+bool queueIsFull(Queue*);
+
+int main() {
      setlocale(LC_ALL, "RUS");
 
      const int N = 3;
-     Stack* stack = new Stack{N};
-     cout << endl;
-     cout << "Stack: ";
-     getElements(stack);
-     cout << "is Empty: " << isEmpty(stack) << endl;
-     cout << "is Full: " << isFull(stack) << endl;
-     cout << "Length Now: " << nowLength(stack) << endl;
-     stack = pushElement(stack, 5);
-     cout << endl;
-     cout << "Stack: ";
-     getElements(stack);
-     cout << "Length Now: " << nowLength(stack) << endl;
-     stack = pushElement(stack, 10);
-     cout << endl;
-     cout << "Stack: ";
-     getElements(stack);
-     cout << "Length Now: " << nowLength(stack) << endl;
-     cout << "is Empty: " << isEmpty(stack) << endl;
-     cout << "is Full: " << isFull(stack) << endl;
-     stack = pushElement(stack, 12);
-     cout << endl;
-     cout << "Stack: ";
-     getElements(stack);
-     cout << "Length Now: " << nowLength(stack) << endl;
-     cout << "is Empty: " << isEmpty(stack) << endl;
-     cout << "is Full: " << isFull(stack) << endl;
-     int elem = getElementsByIndex(stack, 1);
-     cout << endl;
-     cout << "Stack: ";
-     getElements(stack);
-     cout << "Element: " << elem << endl;
-     cout << "Length Now: " << nowLength(stack) << endl;
-     cout << "is Empty: " << isEmpty(stack) << endl;
-     cout << "is Full: " << isFull(stack) << endl;
-     stack = pushElement(stack, 25);
-     cout << endl;
-     cout << "Stack: ";
-     getElements(stack);
-     cout << "Length Now: " << nowLength(stack) << endl;
-     cout << "is Empty: " << isEmpty(stack) << endl;
-     cout << "is Full: " << isFull(stack) << endl;
-     elem = getElementsByIndex(stack, 0);
-     elem = getElementsByIndex(stack, 0);
-     elem = getElementsByIndex(stack, 0);
-     elem = getElementsByIndex(stack, 0);
-     cout << endl;
-     cout << "Stack: ";
-     getElements(stack);
-     cout << "Length Now: " << nowLength(stack) << endl;
-     cout << "is Empty: " << isEmpty(stack) << endl;
-     cout << "is Full: " << isFull(stack) << endl;
-     cout << endl;
-     stack = pushElement(stack, 1);
-     stack = pushElement(stack, 2);
-     stack = pushElement(stack, 3);
-     cout << "Stack: ";
-     getElements(stack);
-     elem = getLastElement(stack);
-     cout << endl;
-     cout << "Element: " << elem << endl;
-     cout << "Stack: ";
-     getElements(stack);
-     elem = getLastElement(stack);
-     cout << endl;
-     cout << "Element: " << elem << endl;
-     cout << "Stack: ";
-     getElements(stack);
-     elem = getLastElement(stack);
-     cout << endl;
-     cout << "Element: " << elem << endl;
-     cout << "Stack: ";
-     elem = getLastElement(stack);
-     getElements(stack);
-     cout << endl;
-     cout << "Element: " << elem << endl;
-     cout << "Stack: ";
-     getElements(stack);
-     elem = getLastElement(stack);
-     cout << endl;
-     cout << "Element: " << elem << endl;
-     cout << "Stack: ";
-     getElements(stack);
-
+     Queue* newQueue = new Queue(N);
+     bool isEmpty = queueIsEmpty(newQueue);
+     bool isFull = queueIsFull(newQueue);
+     cout << "РћС‡РµСЂРµРґСЊ РїСѓСЃС‚Р°? - " << isEmpty << endl;
+     cout << "РћС‡РµСЂРµРґСЊ Р·Р°РїРѕР»РЅРµРЅР°? - " << isFull << endl;
+     newQueue = addElement(newQueue, 1);
+     newQueue = addElement(newQueue, 2);
+     newQueue = addElement(newQueue, 3);
+     cout << "РћС‡РµСЂРµРґСЊ: ";
+     showElements(newQueue);
+     isFull = queueIsFull(newQueue);
+     isEmpty = queueIsEmpty(newQueue);
+     cout << "РћС‡РµСЂРµРґСЊ РїСѓСЃС‚Р°? - " << isEmpty << endl;
+     cout << "РћС‡РµСЂРµРґСЊ Р·Р°РїРѕР»РЅРµРЅР°? - " << isFull << endl;
+     int length = queueLength(newQueue);
+     cout << "Р”Р»РёРЅР°: " << length << endl;
+     int n1 = getElement(&newQueue);
+     cout << "Р­Р»РµРјРµРЅС‚: " << n1 << endl;
+     cout << "РћС‡РµСЂРµРґСЊ: ";
+     showElements(newQueue);
+     length = queueLength(newQueue);
+     cout << "Р”Р»РёРЅР°: " << length << endl;
+     isEmpty = queueIsEmpty(newQueue);
+     isFull = queueIsFull(newQueue);
+     cout << "РћС‡РµСЂРµРґСЊ РїСѓСЃС‚Р°? - " << isEmpty << endl;
+     cout << "РћС‡РµСЂРµРґСЊ Р·Р°РїРѕР»РЅРµРЅР°? - " << isFull << endl;
+     n1 = getElement(&newQueue);
+     n1 = getElement(&newQueue);
+     isEmpty = queueIsEmpty(newQueue);
+     isFull = queueIsFull(newQueue);
+     cout << "РћС‡РµСЂРµРґСЊ: ";
+     showElements(newQueue);
+     cout << "РћС‡РµСЂРµРґСЊ РїСѓСЃС‚Р°? - " << isEmpty << endl;
+     cout << "РћС‡РµСЂРµРґСЊ Р·Р°РїРѕР»РЅРµРЅР°? - " << isFull << endl;
+     n1 = getElement(&newQueue);
+     cout << "Р•СЃР»Рё РѕС‡РµСЂРµРґСЊ РїСѓСЃС‚Р°, С‚Рѕ Р±РµСЂРµС‚СЃСЏ: " << n1;
+     return 0;
 }
 
-Stack* pushElement(Stack* top, int value) {
-     if (top->length < top->size) {
-          Stack* newStack = new Stack;
-          newStack->size = top->size;
-          newStack->value = value;
-          newStack->length = top->length+1;
-          newStack->prev = top;
-          return newStack;
+Queue* addElement(Queue* queue, int value) {
+     if (queue->size >= queue->length+1) {
+          Queue* newQueue = new Queue(queue->size);
+          newQueue->value = value;
+          newQueue->next = queue;
+          newQueue->length = queue->length + 1;
+          return newQueue;
      }
-
-     return top;
+     return queue;
 }
 
-void getElements(Stack *top) {
-     int cnt = 0;
-     int lngth = top->length;
-     Stack* temp = top;
-     while (cnt < lngth) {
-          cout << temp->value << " ";
-          temp = temp->prev;
-          cnt++;
+int getElement(Queue** queue) {
+     if ((*queue)->length > 0) {
+          int num = (*queue)->value;
+          *queue = (*queue)->next;
+          return num;
+     }
+     return -1e6;
+}
+
+void showElements(Queue* queue) {
+     while (queue->length > 0) {
+          cout << queue->value << " ";
+          queue = queue->next;
      }
      cout << endl;
 }
 
-void create_new_task(int arr_new_stack[], int sz, Stack* &newStack) {
-    for (int i = sz-1; i >= 0; i--) {
-        newStack = pushElement(newStack, arr_new_stack[i]);
-    }
+int queueLength(Queue* queue) {
+     return queue->length;
 }
 
-int getElementsByIndex(Stack* &top, int index) {
-     Stack* temp = top;
-     int start_length = temp->length;
-     int index_arr = 0;
-     int cnt = 0;
-     int num = -1;
-     int arr_new_stack[start_length-1] {};
-
-     while (cnt < start_length) {
-          if (start_length - temp->length == index) {
-               num = temp->value;
-          } else {
-               arr_new_stack[index_arr++] = temp->value;
-          }
-          cnt++;
-          temp = temp->prev;
-     }
-
-     if (num != -1) {
-         int sz = sizeof(arr_new_stack) / sizeof(arr_new_stack[0]);
-         Stack* newStack = new Stack{top->size};
-         create_new_task(arr_new_stack, sz, newStack);
-         top = newStack;
-     }
-
-     return num;
+bool queueIsEmpty(Queue* queue) {
+     return queue->length == 0;
 }
 
-int getLastElement(Stack* &top) {
-    Stack* temp = top->prev;
-    if (!top->length) {
-        return -1;
-    }
-    int length = temp->length;
-    int num = -1;
-    int cnt = 0;
-    int index_arr = 0;
-    int arr_new_stack[length] {};
-    num = top->value;
-
-    while (cnt != top->length-1 && top->length-1 > 0) {
-        arr_new_stack[index_arr++] = temp->value;
-        temp = temp->prev;
-        cnt++;
-    }
-
-    if (num != -1 && top->length-1 >= 0) {
-        int sz = sizeof(arr_new_stack) / sizeof(arr_new_stack[0]);
-        Stack* newStack = new Stack{top->size};
-        create_new_task(arr_new_stack, sz, newStack);
-        top = newStack;
-    }
-    return num;
+bool queueIsFull(Queue* queue) {
+     return queue->length == queue->size;
 }
-
-bool isEmpty(Stack* top) {
-     return top->length == 0;
-}
-
-bool isFull(Stack* top) {
-     return top->length == top->size;
-}
-
-int nowLength(Stack* top) {
-     return top->length;
-}
-
