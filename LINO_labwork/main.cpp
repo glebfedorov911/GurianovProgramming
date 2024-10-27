@@ -1,6 +1,4 @@
 #include <iostream>
-#include <optional>
-#include <queue>
 
 /*
 װוהמנמג ֳכוב 24ֲֿ1
