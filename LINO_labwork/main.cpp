@@ -1,17 +1,17 @@
 #include <iostream>
 
 /*
-Федоров Глеб 24ВП1
-Очередь с двусторонним доступом задана, как однонаправленный линеный список целых чисел.
-Задана максимальная длина очереди - N.
-Реализовать дисциплину обслуживания LIFO - последним пришел, первым ушел
-Функции:
-• поместить элемент в очередь +
-• выбрать элемент очереди +
-• вывести текущее содержимое очереди +
-• текущая длина очереди +
-• очередь пуста +
-• очередь заполнена +
+Р¤РµРґРѕСЂРѕРІ Р“Р»РµР± 24Р’Рџ1
+РћС‡РµСЂРµРґСЊ СЃ РґРІСѓСЃС‚РѕСЂРѕРЅРЅРёРј РґРѕСЃС‚СѓРїРѕРј Р·Р°РґР°РЅР°, РєР°Рє РѕРґРЅРѕРЅР°РїСЂР°РІР»РµРЅРЅС‹Р№ Р»РёРЅРµРЅС‹Р№ СЃРїРёСЃРѕРє С†РµР»С‹С… С‡РёСЃРµР».
+Р—Р°РґР°РЅР° РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РґР»РёРЅР° РѕС‡РµСЂРµРґРё - N.
+Р РµР°Р»РёР·РѕРІР°С‚СЊ РґРёСЃС†РёРїР»РёРЅСѓ РѕР±СЃР»СѓР¶РёРІР°РЅРёСЏ LIFO - РїРѕСЃР»РµРґРЅРёРј РїСЂРёС€РµР», РїРµСЂРІС‹Рј СѓС€РµР»
+Р¤СѓРЅРєС†РёРё:
+вЂў РїРѕРјРµСЃС‚РёС‚СЊ СЌР»РµРјРµРЅС‚ РІ РѕС‡РµСЂРµРґСЊ +
+вЂў РІС‹Р±СЂР°С‚СЊ СЌР»РµРјРµРЅС‚ РѕС‡РµСЂРµРґРё +
+вЂў РІС‹РІРµСЃС‚Рё С‚РµРєСѓС‰РµРµ СЃРѕРґРµСЂР¶РёРјРѕРµ РѕС‡РµСЂРµРґРё +
+вЂў С‚РµРєСѓС‰Р°СЏ РґР»РёРЅР° РѕС‡РµСЂРµРґРё +
+вЂў РѕС‡РµСЂРµРґСЊ РїСѓСЃС‚Р° +
+вЂў РѕС‡РµСЂРµРґСЊ Р·Р°РїРѕР»РЅРµРЅР° +
 */
 
 using std::cout;
@@ -38,39 +38,39 @@ int main() {
      Queue* newQueue = new Queue(N);
      bool isEmpty = queueIsEmpty(newQueue);
      bool isFull = queueIsFull(newQueue);
-     cout << "Очередь пуста? - " << isEmpty << endl;
-     cout << "Очередь заполнена? - " << isFull << endl;
+     cout << "РћС‡РµСЂРµРґСЊ РїСѓСЃС‚Р°? - " << isEmpty << endl;
+     cout << "РћС‡РµСЂРµРґСЊ Р·Р°РїРѕР»РЅРµРЅР°? - " << isFull << endl;
      newQueue = addElement(newQueue, 1);
      newQueue = addElement(newQueue, 2);
      newQueue = addElement(newQueue, 3);
-     cout << "Очередь: ";
+     cout << "РћС‡РµСЂРµРґСЊ: ";
      showElements(newQueue);
      isFull = queueIsFull(newQueue);
      isEmpty = queueIsEmpty(newQueue);
-     cout << "Очередь пуста? - " << isEmpty << endl;
-     cout << "Очередь заполнена? - " << isFull << endl;
+     cout << "РћС‡РµСЂРµРґСЊ РїСѓСЃС‚Р°? - " << isEmpty << endl;
+     cout << "РћС‡РµСЂРµРґСЊ Р·Р°РїРѕР»РЅРµРЅР°? - " << isFull << endl;
      int length = queueLength(newQueue);
-     cout << "Длина: " << length << endl;
+     cout << "Р”Р»РёРЅР°: " << length << endl;
      int n1 = getElement(&newQueue);
-     cout << "Элемент: " << n1 << endl;
-     cout << "Очередь: ";
+     cout << "Р­Р»РµРјРµРЅС‚: " << n1 << endl;
+     cout << "РћС‡РµСЂРµРґСЊ: ";
      showElements(newQueue);
      length = queueLength(newQueue);
-     cout << "Длина: " << length << endl;
+     cout << "Р”Р»РёРЅР°: " << length << endl;
      isEmpty = queueIsEmpty(newQueue);
      isFull = queueIsFull(newQueue);
-     cout << "Очередь пуста? - " << isEmpty << endl;
-     cout << "Очередь заполнена? - " << isFull << endl;
+     cout << "РћС‡РµСЂРµРґСЊ РїСѓСЃС‚Р°? - " << isEmpty << endl;
+     cout << "РћС‡РµСЂРµРґСЊ Р·Р°РїРѕР»РЅРµРЅР°? - " << isFull << endl;
      n1 = getElement(&newQueue);
      n1 = getElement(&newQueue);
      isEmpty = queueIsEmpty(newQueue);
      isFull = queueIsFull(newQueue);
-     cout << "Очередь: ";
+     cout << "РћС‡РµСЂРµРґСЊ: ";
      showElements(newQueue);
-     cout << "Очередь пуста? - " << isEmpty << endl;
-     cout << "Очередь заполнена? - " << isFull << endl;
+     cout << "РћС‡РµСЂРµРґСЊ РїСѓСЃС‚Р°? - " << isEmpty << endl;
+     cout << "РћС‡РµСЂРµРґСЊ Р·Р°РїРѕР»РЅРµРЅР°? - " << isFull << endl;
      n1 = getElement(&newQueue);
-     cout << "Если очередь пуста, то берется: " << n1;
+     cout << "Р•СЃР»Рё РѕС‡РµСЂРµРґСЊ РїСѓСЃС‚Р°, С‚Рѕ Р±РµСЂРµС‚СЃСЏ: " << n1;
      return 0;
 }
 
